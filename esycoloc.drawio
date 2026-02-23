@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0" version="29.3.8">
+  <diagram name="Page-1" id="PXD-nHhkE5YzCAMVbc59">
+    <mxGraphModel dx="2929" dy="1186" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="oYpMsJ4C2xeJRIZBncsd-1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="&lt;div&gt;User&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="30" x="70" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="oYpMsJ4C2xeJRIZBncsd-2" parent="1" style="html=1;whiteSpace=wrap;" value="" vertex="1">
+          <mxGeometry height="680" width="1240" x="160" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oYpMsJ4C2xeJRIZBncsd-3" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Owner" vertex="1">
+          <mxGeometry height="60" width="30" x="70" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="oYpMsJ4C2xeJRIZBncsd-5" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="70" y="570" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
