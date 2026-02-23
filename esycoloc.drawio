@@ -17,10 +17,10 @@
           <mxGeometry height="80" width="40" x="-100" y="780" as="geometry" />
         </mxCell>
         <mxCell id="Ln9wyogv-TAlyLO6zjgd-4" parent="aVRN8n9WN4nhYXdMaeDd-1" style="ellipse;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;S&#39;inscrire&lt;/font&gt;" vertex="1">
-          <mxGeometry height="70" width="140" x="320" y="100" as="geometry" />
+          <mxGeometry height="70" width="140" x="300" y="60" as="geometry" />
         </mxCell>
         <mxCell id="Ln9wyogv-TAlyLO6zjgd-5" parent="aVRN8n9WN4nhYXdMaeDd-1" style="ellipse;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Logout&lt;/font&gt;" vertex="1">
-          <mxGeometry height="70" width="140" x="320" y="180" as="geometry" />
+          <mxGeometry height="70" width="140" x="330" y="140" as="geometry" />
         </mxCell>
         <mxCell id="Ln9wyogv-TAlyLO6zjgd-6" parent="aVRN8n9WN4nhYXdMaeDd-1" style="ellipse;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Authentifier&lt;/font&gt;" vertex="1">
           <mxGeometry height="70" width="140" x="1490" y="150" as="geometry" />
