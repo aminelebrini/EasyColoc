@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0" version="29.3.8">
   <diagram name="Page-1" id="PXD-nHhkE5YzCAMVbc59">
-    <mxGraphModel dx="2282" dy="307" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1700" math="0" shadow="0">
+    <mxGraphModel dx="2748" dy="553" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1700" math="0" shadow="0">
       <root>
         <mxCell id="aVRN8n9WN4nhYXdMaeDd-0" />
         <mxCell id="aVRN8n9WN4nhYXdMaeDd-1" parent="aVRN8n9WN4nhYXdMaeDd-0" />
@@ -331,6 +331,30 @@
             <mxPoint x="1010" y="1730" as="sourcePoint" />
             <mxPoint x="1170" y="1650" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-24" parent="aVRN8n9WN4nhYXdMaeDd-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Membership" vertex="1">
+          <mxGeometry height="104" width="140" x="770" y="1990" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-26" parent="1PuFM1rZdu3_EnTCN7Qi-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,2,1,0,0&quot; data-index-in-node=&quot;24&quot;&gt;role&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-27" parent="1PuFM1rZdu3_EnTCN7Qi-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,2,1,0,0&quot; data-index-in-node=&quot;45&quot;&gt;joined_at&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-28" parent="1PuFM1rZdu3_EnTCN7Qi-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,2,1,0,0&quot; data-index-in-node=&quot;56&quot;&gt;left_at&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-29" parent="aVRN8n9WN4nhYXdMaeDd-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Expense" vertex="1">
+          <mxGeometry height="104" width="140" x="1000" y="1990" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-30" parent="1PuFM1rZdu3_EnTCN7Qi-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,3,1,0,0&quot; data-index-in-node=&quot;4&quot;&gt;amount&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-31" parent="1PuFM1rZdu3_EnTCN7Qi-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,3,1,0,0&quot; data-index-in-node=&quot;12&quot;&gt;description&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-32" parent="1PuFM1rZdu3_EnTCN7Qi-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,3,1,0,0&quot; data-index-in-node=&quot;25&quot;&gt;date&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="78" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
