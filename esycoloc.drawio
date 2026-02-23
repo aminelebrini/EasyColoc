@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0" version="29.3.8">
   <diagram name="Page-1" id="PXD-nHhkE5YzCAMVbc59">
-    <mxGraphModel dx="2748" dy="553" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1700" math="0" shadow="0">
+    <mxGraphModel dx="2823" dy="593" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1700" math="0" shadow="0">
       <root>
         <mxCell id="aVRN8n9WN4nhYXdMaeDd-0" />
         <mxCell id="aVRN8n9WN4nhYXdMaeDd-1" parent="aVRN8n9WN4nhYXdMaeDd-0" />
@@ -364,6 +364,24 @@
         </mxCell>
         <mxCell id="1PuFM1rZdu3_EnTCN7Qi-35" parent="1PuFM1rZdu3_EnTCN7Qi-33" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,4,1,0,0&quot; data-index-in-node=&quot;36&quot;&gt;is_paid&lt;/code&gt;" vertex="1">
           <mxGeometry height="26" width="140" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-37" edge="1" parent="aVRN8n9WN4nhYXdMaeDd-1" source="1PuFM1rZdu3_EnTCN7Qi-13" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="1PuFM1rZdu3_EnTCN7Qi-9" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="717.5" y="1920" as="sourcePoint" />
+            <mxPoint x="900" y="1930" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-40" parent="aVRN8n9WN4nhYXdMaeDd-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Invitation" vertex="1">
+          <mxGeometry height="104" width="140" x="1400" y="1990" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-41" parent="1PuFM1rZdu3_EnTCN7Qi-40" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,5,1,0,0&quot; data-index-in-node=&quot;4&quot;&gt;email&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-42" parent="1PuFM1rZdu3_EnTCN7Qi-40" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,5,1,0,0&quot; data-index-in-node=&quot;11&quot;&gt;token&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-43" parent="1PuFM1rZdu3_EnTCN7Qi-40" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,5,1,0,0&quot; data-index-in-node=&quot;33&quot;&gt;status&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="78" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
