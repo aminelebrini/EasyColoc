@@ -356,6 +356,15 @@
         <mxCell id="1PuFM1rZdu3_EnTCN7Qi-32" parent="1PuFM1rZdu3_EnTCN7Qi-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,3,1,0,0&quot; data-index-in-node=&quot;25&quot;&gt;date&lt;/code&gt;" vertex="1">
           <mxGeometry height="26" width="140" y="78" as="geometry" />
         </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-33" parent="aVRN8n9WN4nhYXdMaeDd-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Settlement" vertex="1">
+          <mxGeometry height="78" width="140" x="1225" y="1990" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-34" parent="1PuFM1rZdu3_EnTCN7Qi-33" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,4,1,0,0&quot; data-index-in-node=&quot;28&quot;&gt;amount&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="1PuFM1rZdu3_EnTCN7Qi-35" parent="1PuFM1rZdu3_EnTCN7Qi-33" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-&amp;nbsp;&lt;code data-path-to-node=&quot;12,4,1,0,0&quot; data-index-in-node=&quot;36&quot;&gt;is_paid&lt;/code&gt;" vertex="1">
+          <mxGeometry height="26" width="140" y="52" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
