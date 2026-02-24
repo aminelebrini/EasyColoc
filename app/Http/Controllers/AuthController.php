@@ -35,7 +35,7 @@ class AuthController extends Controller
         $register = $this->AuthService->register($request->firstname, $request->lastname, $request->email,$request->password);
         if($register)
         {
-            return view('login');
+            return redirect()->route('login');
         }
     }
 }

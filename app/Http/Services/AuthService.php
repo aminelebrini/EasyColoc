@@ -2,7 +2,7 @@
 
 namespace App\Http\Services;
 
-use Dotenv\Repository\AuthRepository;
+use App\Http\Repository\AuthRepository;
 
 class AuthService
 {
