@@ -32,7 +32,7 @@ services:
       - db
 
   db:
-    container_name: ${CONTAINER_NAME=}
+    container_name: db_easycoloc
     image: postgres:15-alpine
     environment:
       POSTGRES_DB: ${DB_DATABASE}
