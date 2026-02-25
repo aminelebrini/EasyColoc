@@ -14,9 +14,9 @@
     }
 
     public function create_colocation($name, $number,$user)
-     {
+    {
         return $this->CollocationRepository->create_colocation($name, $number,$user);
-     }
+    }
   }
 
 ?>
