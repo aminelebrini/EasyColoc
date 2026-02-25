@@ -7,7 +7,7 @@ use App\Http\Services\CollocationService;
 use Illuminate\Support\Facades\Auth;
 
 
-class CreateColocation extends Controller
+class ColocationController extends Controller
 {
     private $CollocationService;
 

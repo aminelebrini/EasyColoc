@@ -3,7 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdmindashController;
 use App\Http\Controllers\CreateColocation;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\MembersController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,10 +21,12 @@ Route::middleware(['auth','role:admin'])->group(function(){
 });
 
 Route::middleware(['auth','role:user,admin'])->group(function(){
-    Route::get('/userspace',[MembersController::class,'show'])->name('userspace');
+    Route::get('/userspace',[UsersController::class,'show'])->name('userspace');
     Route::post('/userspace/create_colocation',[CreateColocation::class, 'create_colocation'])->name('colocations.store');
-    Route::post('/create_expense',[MembersController::class, 'create_expense'])->name('expenses.store');
-    Route::post('/userspace/sendInvitation',[MembersController::class, 'sendInvitation'])->name('invitations.send');
+    Route::post('/userspace/create_expense',[ExpenseController::class, 'create_expense'])->name('expenses.store');
+    Route::post('/userspace/sendInvitation',[InvitationController::class, 'sendInvitation'])->name('invitations.send');
+    Route::get('/logout',[AuthController::class, 'logout']);
+
 });
 
 

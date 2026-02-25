@@ -5,7 +5,7 @@
    use App\Models\Colocation;
    use Illuminate\Support\Facades\DB;
 
-   class MemberRepository
+   class UsersRepository
    {
         public function getcol($userid)
         {

@@ -6,7 +6,7 @@ use App\Http\Services\ExpenseService;
 
 use Illuminate\Http\Request;
 
-class CreateExpense extends Controller
+class ExpenseController extends Controller
 {
     private $ExpenseService;
 

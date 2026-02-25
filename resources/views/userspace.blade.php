@@ -50,13 +50,22 @@
         </div>
 
         <div class="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
-            <div class="flex items-center space-x-3 overflow-hidden">
-                <img src="https://ui-avatars.com/api/?name=Amine&background=6366f1&color=fff" class="w-10 h-10 rounded-full">
+            @auth
+              <div class="flex items-center space-x-3 overflow-hidden">
+                <img src="https://ui-avatars.com/api/?name={{ auth()->user()->firstname . auth()->user()->lastname }}&background=6366f1&color=fff" class="w-10 h-10 rounded-full">
                 <div class="truncate">
-                    <p class="text-sm font-bold truncate">Amine Lebrini</p>
-                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">Admin Global</p>
+                    <p class="text-sm font-bold truncate">{{ auth()->user()->firstname . " " . auth()->user()->lastname }}</p>
+                    <a href="/logout" class="flex items-center group">
+                        <div class="p-2 rounded-xl bg-red-50 text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="ml-3 text-sm font-bold text-gray-500 group-hover:text-red-600 transition-colors">Log-out</span>
+                    </a>
                 </div>
             </div>
+            @endauth
         </div>
     </aside>
 
@@ -64,7 +73,7 @@
         
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
             <div>
-                <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Espace Membre</h1>
+                <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Espace User</h1>
                 <p class="text-gray-500 mt-1">Gérez vos finances en toute simplicité.</p>
             </div>
             <button onclick="toggleModal('modalExpense')" class="px-8 py-4 bg-indigo-600 text-white rounded-[20px] font-bold shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition-all flex items-center space-x-2">
@@ -153,6 +162,7 @@
                     <label class="text-sm font-bold text-gray-700 ml-2">Nombre de Membres (Numbers)</label>
                     <input type="number" name="number" required class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 focus:bg-white outline-none transition-all" placeholder="Ex: 4">
                 </div>
+                <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
                 <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
                     Lancer la Coloc
                 </button>

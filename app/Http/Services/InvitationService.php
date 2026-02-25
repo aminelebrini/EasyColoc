@@ -13,9 +13,9 @@
         $this->InvitationRepository = $InvitationRepository;
     }
 
-    public function sendInvitation($email)
+    public function sendInvitation($email, $colocationId)
      {
-        return $this->InvitationRepository->sendInvitation($email);
+        return $this->InvitationRepository->sendInvitation($email, $colocationId);
      }
   }
 

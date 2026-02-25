@@ -4,22 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Services\MemberService;
+use App\Http\Services\UsersService;
 use Illuminate\Support\Facades\Auth;
 
-class MembersController extends Controller
+class UsersController extends Controller
 {
-    private $MemberService;
+    private $UsersService;
 
-    public function __construct(MemberService $MemberService)
+    public function __construct(UsersService $UsersService)
     {
-        $this->MemberService = $MemberService;
+        $this->UsersService = $UsersService;
     }
 
     public function show()
     {
         $userid = Auth::user()->id;
-        $colocation = $this->MemberService->getcol($userid);
+        $colocation = $this->UsersService->getcol($userid);
         return view('userspace',[
             'colocation' => $colocation
         ]);
