@@ -30,7 +30,7 @@ class AuthRepository
             {
                 $role = "admin";
             }else{
-                $role = "member";
+                $role = "user";
             }
 
             User::create([

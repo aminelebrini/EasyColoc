@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Services\MemberService;
+use Illuminate\Support\Facades\Auth;
 
 class MembersController extends Controller
 {
@@ -17,13 +18,19 @@ class MembersController extends Controller
 
     public function show()
     {
-        return view('memberspace');
+        return view('userspace');
     }
 
-    public function create_colocation()
+    public function create_colocation(Request $request)
     {
-        $colocation = $this->MemberService->create_colocation();
-
+        $request->validate([
+            'name' => 'required | string',
+            'number' => 'required|integer|max:5'
+        ]);
+        $user = Auth::user()->id;
+        // dd($user);
+        $colocation = $this->MemberService->create_colocation($request->name, $request->number,$user);
+        
         if($colocation)
         {
             return redirect()->route('memberspace')->with('succesfuly to create this colocation');

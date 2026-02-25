@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('colocation_id')->constrained('colocations')->onDelete('cascade');
             $table->string('role');
             $table->date('joined_at');
-            $table->date('left_at');
+            $table->date('left_at')->nullable();
         });
     }
 

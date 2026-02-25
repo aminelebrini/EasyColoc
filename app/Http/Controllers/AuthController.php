@@ -30,9 +30,9 @@ class AuthController extends Controller
         {
             return redirect()->route('admindash'); 
         }
-        if($user->role === 'member')
+        if($user->role === 'user')
         {
-            return redirect()->route('memberspace');
+            return redirect()->route('userspace');
         }
 
     }

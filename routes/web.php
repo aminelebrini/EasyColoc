@@ -16,8 +16,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admindash',[AdmindashController::class,'show'])->name('admindash');
 });
 
-Route::middleware(['auth','role:member'])->group(function(){
-    Route::get('/memberspace',[MembersController::class,'show'])->name('memberspace');
-    Route::post('/create_colocation',[MembersController::class, 'create_colocation'])->name('colocations.store');
+Route::middleware(['auth','role:user,admin'])->group(function(){
+    Route::get('/userspace',[MembersController::class,'show'])->name('userspace');
+    Route::post('/userspace/create_colocation',[MembersController::class, 'create_colocation'])->name('colocations.store');
     Route::post('/create_expense',[MembersController::class, 'create_expense'])->name('expenses.store');
 });

@@ -13,9 +13,9 @@
         $this->MemberRepository = $MemberRepository;
      }
 
-     public function create_colocation()
+     public function create_colocation($name, $number,$user)
      {
-        return $this->MemberRepository->create_colocation();
+        return $this->MemberRepository->create_colocation($name, $number,$user);
      }
 
      public function create_expense()
