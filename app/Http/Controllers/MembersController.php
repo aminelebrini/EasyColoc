@@ -18,7 +18,11 @@ class MembersController extends Controller
 
     public function show()
     {
-        return view('userspace');
+        $userid = Auth::user()->id;
+        $colocation = $this->MemberService->getcol($userid);
+        return view('userspace',[
+            'colocation' => $colocation
+        ]);
     }
 
     public function create_colocation(Request $request)
@@ -44,5 +48,13 @@ class MembersController extends Controller
         {
             return redirect()->route('memberspace')->with('succesfuly to create this expence');
         }
+    }
+
+    public function sendInvitation(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+        $invitation = $this->MemberService->sendInvitation($request->email);
     }
 }

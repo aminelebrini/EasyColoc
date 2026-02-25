@@ -11,4 +11,11 @@ class Colocation extends Model
         'status',
         'numbers',
     ];
+
+
+    public function users()
+    {
+        return $this->hasOne(User::class);
+    }
+    
 }

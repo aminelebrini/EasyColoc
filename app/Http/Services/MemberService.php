@@ -22,6 +22,13 @@
      {
         return $this->MemberRepository->create_expense();
      }
+
+     public
+
+     public function getcol($userid)
+     {
+        return $this->MemberRepository->getcol($userid);
+     }
   }
 
 ?>

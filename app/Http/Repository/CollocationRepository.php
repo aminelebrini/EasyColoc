@@ -1,13 +1,12 @@
 <?php
-   
-   namespace App\Http\Repository;
 
+   namespace App\Http\Repository;
    use App\Models\Colocation;
    use Illuminate\Support\Facades\DB;
 
-   class MemberRepository
+   class CollocationRepository
    {
-        public function create_colocation($name, $number,$user)
+    public function create_colocation($name, $number,$user)
         {
             $coloc = Colocation::create([
                 'name' => $name,
@@ -25,23 +24,6 @@
             'left_at' => null,
             ]);
         }
-
-        public function create_expense()
-        {
-
-        }
-
-        public function getcol($userid)
-        {
-            $membership = DB::table('memberships')
-            ->where('member_id', $userid)
-            ->whereNull('left_at')
-            ->first();
-            $colocation = Colocation::where('id', $membership->colocation_id)->first();
-
-            return $colocation;
-        }
    }
-
 
 ?>

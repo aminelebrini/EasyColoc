@@ -80,23 +80,32 @@
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
                     <div>
-                        <div class="flex items-center gap-4">
-                            <h2 class="text-3xl font-bold text-gray-900">YouCode Students</h2>
-                            <span class="px-4 py-1.5 bg-green-100 text-green-700 text-[10px] font-black rounded-full uppercase tracking-widest shadow-sm">Actif</span>
-                        </div>
-                        <p class="text-gray-500 mt-2 font-medium flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            4 Colocataires • Safi, Maroc
-                        </p>
+                        @if($colocation)
+                            <div class="flex items-center gap-4">
+                                <h2 class="text-3xl font-bold text-gray-900">{{ $colocation->name }}</h2>
+                                <span class="px-4 py-1.5 bg-green-100 text-green-700 text-[10px] font-black rounded-full uppercase tracking-widest shadow-sm">Actif</span>
+                            </div>
+                            <p class="text-gray-500 mt-2 font-medium flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                MAX: {{ $colocation->numbers }}
+                            </p>
+                        @else
+                           <div class="flex flex-col gap-2">
+                                <h2 class="text-3xl font-bold text-gray-400 italic">Aucune Colocation</h2>
+                                <button onclick="toggleModal('modalColoc')" class="text-indigo-600 font-bold hover:underline text-left">
+                                    + Créer ou rejoindre une colocation
+                                </button>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="flex gap-4">
                     <button class="px-6 py-3 bg-white border border-gray-100 text-gray-600 font-bold rounded-2xl hover:bg-gray-50 transition-all">Détails</button>
-                    <button class="px-6 py-3 bg-indigo-50 text-indigo-600 font-bold rounded-2xl hover:bg-indigo-100 transition-all">Inviter +</button>
+                    <button onclick="toggleModal('modalInvite')" class="px-6 py-3 bg-indigo-50 text-indigo-600 font-bold rounded-2xl hover:bg-indigo-100 transition-all">Inviter +</button>
                 </div>
             </div>
         </div>
-
+        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
             <div class="p-8 bg-white rounded-[32px] shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                 <p class="text-gray-400 text-[11px] font-bold uppercase tracking-widest mb-3">Mon Solde Personnel</p>
@@ -184,6 +193,45 @@
             </form>
         </div>
     </div>
+
+    <div id="modalInvite" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 backdrop-blur-md">
+        <div class="bg-white w-full max-w-lg rounded-[48px] p-12 shadow-2xl relative">
+            <button onclick="toggleModal('modalInvite')" class="absolute top-8 right-8 text-gray-400 hover:text-gray-900 transition-colors">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        
+            <div class="w-16 h-16 bg-indigo-50 rounded-3xl flex items-center justify-center mb-6 text-indigo-600">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+        
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Inviter un membre</h2>
+            <p class="text-gray-500 mb-10">Entrez l'adresse email de votre futur colocataire.</p>
+
+            <form action="{{ route('invitations.send') }}" method="POST" class="space-y-8">
+                @csrf
+                @if($colocation)
+                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                @endif
+
+                <div class="space-y-3">
+                    <label class="text-sm font-bold text-gray-700 ml-2">Adresse Email</label>
+                    <div class="relative">
+                        <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        <input type="email" name="email" required 
+                            class="w-full pl-14 pr-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 focus:bg-white outline-none transition-all" 
+                            placeholder="exemple@mail.com">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
+                    Envoyer l'invitation
+                </button>
+            </form>
+        </div>
+    </div>
+
 
     <script>
         function toggleModal(id) {
