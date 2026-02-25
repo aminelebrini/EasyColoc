@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Services\AuthService;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,15 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+        $user = $this->AuthService->login($request->email,$request->password);
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        if($user->role === 'admin')
+        {
+            return redirect()->route('admindash'); 
+        }
 
     }
 

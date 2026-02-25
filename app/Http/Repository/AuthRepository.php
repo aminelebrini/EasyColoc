@@ -9,6 +9,12 @@ class AuthRepository
 {
     public function login($email,$password)
     {
+        $user = User::where('email', $email)->first();
+
+        if(Hash::check($password, $user->password))
+        {
+            return $user;
+        }
 
     }
     public function register($firstname, $lastname, $email,$password)

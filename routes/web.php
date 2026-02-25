@@ -11,6 +11,6 @@ Route::get('/', function () {
 Route::post('/login',[AuthController::class, 'login'])->name('login.post');
 Route::post('/register',[AuthController::class, 'register'])->name('register.post');
 
-Route::middleware(['auth','admin'])->group(function(){
-    Route::get('/admindash',[AdmindashController::class,'index'])->name('admindash');
+Route::middleware('auth')->group(function(){
+    Route::get('/admindash',[AdmindashController::class,'show'])->name('admindash');
 });
