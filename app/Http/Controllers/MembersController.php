@@ -14,4 +14,28 @@ class MembersController extends Controller
     {
         $this->MemberService = $MemberService;
     }
+
+    public function show()
+    {
+        return view('memberspace');
+    }
+
+    public function create_colocation()
+    {
+        $colocation = $this->MemberService->create_colocation();
+
+        if($colocation)
+        {
+            return redirect()->route('memberspace')->with('succesfuly to create this colocation');
+        } 
+    }
+
+    public function create_expense()
+    {
+        $expences = $this->MemberService->create_expense();
+        if($expences)
+        {
+            return redirect()->route('memberspace')->with('succesfuly to create this expence');
+        }
+    }
 }

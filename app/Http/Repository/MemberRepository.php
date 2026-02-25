@@ -6,6 +6,11 @@
    {
         public function create_colocation()
         {
+
+        }
+
+        public function create_expense()
+        {
             
         }
    }
