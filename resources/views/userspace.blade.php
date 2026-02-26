@@ -121,16 +121,15 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
                         <div>
-                            <p class="text-gray-900 font-bold">Coloc : {{ $invitation->colocation->name }}</p>
-                            <p class="text-gray-500 text-sm">De: {{ $invitation->sender->firstname }} {{ $invitation->sender->lastname }}</p>
+                            <p class="text-gray-900 font-bold">Coloc : {{ $invitation->colocation_name }}</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <form action="{{ route('invitations.accept', $invitation->id) }}" method="POST">
+                        <form action="{{ route('invitations.accept') }}" method="POST">
                             @csrf
                             <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-700 transition-all">Accepter</button>
                         </form>
-                        <form action="{{ route('invitations.refuse', $invitation->id) }}" method="POST">
+                        <form action="{{ route('invitations.refuse') }}" method="POST">
                             @csrf
                             <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-600 text-sm font-bold rounded-xl hover:bg-gray-200 transition-all">Refuser</button>
                         </form>

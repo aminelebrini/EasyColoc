@@ -28,6 +28,8 @@ Route::middleware(['auth','role:user,admin'])->group(function(){
     Route::post('/userspace/create_expense',[ExpenseController::class, 'create_expense'])->name('expenses.store');
     Route::post('/userspace/sendInvitation',[InvitationController::class, 'sendInvitation'])->name('invitations.send');
     Route::post('/userspace/CreateCategorie',[CategorieController::class, 'CreateCategorie'])->name('categories.store');
+    Route::post('/userspace/acceptInvitation',[InvitationController::class,'acceptInvitation'])->name('invitations.accept');
+    Route::post('/userspace/RefusInvitation',[InvitationController::class,'RefusInvitation'])->name('invitations.refuse');
     Route::get('/logout',[AuthController::class, 'logout']);
 
 });

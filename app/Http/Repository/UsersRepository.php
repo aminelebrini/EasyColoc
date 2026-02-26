@@ -64,8 +64,14 @@ use Illuminate\Support\Facades\DB;
 
         public function getInvitations($user)
         {
-            $invitations = Invitation::where('email', $user->email)
-            ->where('status','pending')->get();
+            $colocation = Colocation::all();
+
+            $invitations = Invitation::join('colocations', 'invitations.colocation_id', '=', 'colocations.id')
+            ->where('invitations.email', '=', $user->email)
+            ->where('invitations.status', '=', 'pending')->select(
+                'invitations.*', 
+                'colocations.name as colocation_name',
+            )->get();
 
             return $invitations;
         }
