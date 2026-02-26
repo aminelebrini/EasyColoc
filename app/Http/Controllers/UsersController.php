@@ -20,8 +20,10 @@ class UsersController extends Controller
     {
         $userid = Auth::user()->id;
         $colocation = $this->UsersService->getcol($userid);
+        $memberships = $this->UsersService->getMember($userid);
         return view('userspace',[
-            'colocation' => $colocation
+            'colocation' => $colocation,
+            'memberships' => $memberships
         ]);
     }
 }

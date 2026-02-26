@@ -17,6 +17,11 @@
      {
         return $this->UsersRepository->getcol($userid);
      }
+
+     public function getMember($userid)
+     {
+      return $this->UsersRepository->getMember($userid);
+     }
   }
 
 ?>

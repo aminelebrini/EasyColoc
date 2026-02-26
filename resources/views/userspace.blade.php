@@ -74,14 +74,28 @@
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
             <div>
                 <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Espace User</h1>
-                <p class="text-gray-500 mt-1">Gérez vos finances en toute simplicité.</p>
+                <p class="text-gray-500 mt-1">Gérez vos finances et catégories en toute simplicité.</p>
             </div>
-            <button onclick="toggleModal('modalExpense')" class="px-8 py-4 bg-indigo-600 text-white rounded-[20px] font-bold shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition-all flex items-center space-x-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Nouvelle Dépense</span>
-            </button>
+            <div class="flex gap-3">
+                <button onclick="toggleModal('modalCategorie')" class="px-6 py-4 bg-white text-indigo-600 border border-indigo-100 rounded-[20px] font-bold shadow-sm hover:bg-indigo-50 transition-all flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>Catégories</span>
+                </button>
+                <button onclick="toggleModal('modalExpense')" class="px-8 py-4 bg-indigo-600 text-white rounded-[20px] font-bold shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition-all flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>Dépense</span>
+                </button>
+            </div>
         </header>
-
+        @if(session('error'))
+            <div class="bg-red-500 text-white p-4 rounded-xl mb-4">
+                {{ session('error') }}
+            </div>
+        @elseif(session('success'))
+            <div class="bg-red-500 text-white p-4 rounded-xl mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="mb-10 group">
             <div class="glass p-10 rounded-[40px] bg-white/40 flex flex-col md:flex-row justify-between items-center gap-8 hover:bg-white/60 transition-all duration-500">
                 <div class="flex items-center space-x-8">
@@ -181,7 +195,9 @@
                 @csrf
                 <div class="space-y-2">
                     <label class="text-sm font-bold text-gray-700 ml-2">Désignation</label>
-                    <input type="text" name="title" required class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none focus:ring-4 focus:ring-indigo-500/10" placeholder="Ex: Gaz, Électricité...">
+                    <select name="categories" id="categories">
+                        <option value=""></option>
+                    </select>
                 </div>
                 <div class="grid grid-cols-2 gap-6">
                     <div class="space-y-2">
@@ -235,13 +251,40 @@
                     </div>
                 </div>
 
+                <div class="space-y-3">
+                   @error('email')
+                        <p class="text-red-500 text-xs font-bold mb-4 italic">{{ $message }}</p>
+                    @enderror
+                </div>
                 <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
                     Envoyer l'invitation
                 </button>
             </form>
         </div>
     </div>
+    <div id="modalCategorie" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 backdrop-blur-md">
+        <div class="bg-white w-full max-w-lg rounded-[48px] p-12 shadow-2xl relative">
+            <button onclick="toggleModal('modalCategorie')" class="absolute top-8 right-8 text-gray-400 hover:text-gray-900 transition-colors">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Nouvelle Catégorie</h2>
+            <p class="text-gray-500 mb-10">Organisez vos dépenses par types (Loyer, Courses...)</p>
 
+            <form action="{{ route('categories.store') }}" method="POST" class="space-y-8">
+                @csrf
+                <div class="space-y-3">
+                    <label class="text-sm font-bold text-gray-700 ml-2">Nom de la Catégorie</label>
+                    <input type="text" name="name" required 
+                        class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 focus:bg-white outline-none transition-all" 
+                        placeholder="Ex: Factures, Internet...">
+                </div>
+            
+                <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
+                    Ajouter la Catégorie
+                </button>
+            </form>
+        </div>
+    </div>
 
     <script>
         function toggleModal(id) {

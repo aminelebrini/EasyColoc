@@ -23,9 +23,12 @@ class InvitationController extends Controller
         
         $invitation = $this->InvitationService->sendInvitation($request->email, $request->colocation_id);
 
-        if($invitation)
+        if(!$invitation)
         {
-            return redirect()->route('userspace');
+            return redirect()->back()->with('error', "The user doesn't exist with this email");
+        }
+        else{
+            return redirect()->back()->with('success', "Invitation envoyée !");
         }
     }
 }

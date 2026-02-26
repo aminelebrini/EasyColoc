@@ -17,6 +17,11 @@
 
             return $colocation;
         }
+
+        public function getMember($userid)
+        {
+            return DB::table('memberships')->where('member_id',$userid)->whereNull('colocation_id')->first();
+        }
    }
 
 
