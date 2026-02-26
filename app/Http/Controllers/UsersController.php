@@ -19,14 +19,19 @@ class UsersController extends Controller
     public function show()
     {
         $userid = Auth::user()->id;
+        $user = Auth::user();
         $colocation = $this->UsersService->getcol($userid);
         $memberships = $this->UsersService->getMember($userid);
         $categories  = $this->UsersService->getCategorie();
+        $expenses = $this->UsersService->getExpenses();
+        $invitations = $this->UsersService->getInvitations($user);
         
         return view('userspace',[
             'colocation' => $colocation,
             'memberships' => $memberships,
-            'categories' => $categories
+            'categories' => $categories,
+            'expenses' => $expenses,
+            'invitations' => $invitations
         ]);
     }
 }

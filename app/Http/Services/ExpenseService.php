@@ -13,10 +13,10 @@
         $this->ExpenseRepository = $ExpenseRepository;
     }
 
-    public function create_expense()
-     {
-        return $this->ExpenseRepository->create_expense();
-     }
+    public function create_expense($user,$categories_id, $amount,$colocation_id, $description)
+    {
+        return $this->ExpenseRepository->create_expense($user,$categories_id, $amount,$colocation_id, $description);
+    }
   }
 
 ?>

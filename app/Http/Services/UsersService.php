@@ -23,10 +23,19 @@
          return $this->UsersRepository->getMember($userid);
      }
 
-     public function getCategorie()
-     {
+      public function getCategorie()
+      {
          return $this->UsersRepository->getCategorie();
-     }
+      }
+      public function getExpenses()
+      {
+         return $this->UsersRepository->getExpenses();
+      }
+
+      public function getInvitations($user)
+      {
+         return $this->UsersRepository->getInvitations($user);
+      }
   }
 
 ?>

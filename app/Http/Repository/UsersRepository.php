@@ -4,7 +4,8 @@
 
 use App\Models\Categorie;
 use App\Models\Colocation;
-   use Illuminate\Support\Facades\DB;
+use App\Models\Invitation;
+use Illuminate\Support\Facades\DB;
 
    class UsersRepository
    {
@@ -49,6 +50,24 @@ use App\Models\Colocation;
             $categorie = Categorie::all();
 
             return $categorie;
+        }
+
+        public function getExpenses()
+        {
+            // $userMembership = DB::table('memberships')
+            // ->where('member_id', $userid)
+            // ->whereNull('left_at')
+            // ->get(); 
+
+            // // $expences = 
+        }
+
+        public function getInvitations($user)
+        {
+            $invitations = Invitation::where('email', $user->email)
+            ->where('status','pending')->get();
+
+            return $invitations;
         }
    }
 

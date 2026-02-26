@@ -29,6 +29,18 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <span>Dashboard</span>
             </a>
+
+            <a href="#invitations-section" class="flex items-center justify-between p-4 text-gray-500 hover:bg-indigo-50 hover:text-indigo-600 rounded-2xl transition-all group">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="font-semibold">Invitations</span>
+                </div>
+                @if(isset($receivedInvitations) && $receivedInvitations->count() > 0)
+                    <span class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white group-hover:animate-bounce">
+                        {{ $receivedInvitations->count() }}
+                    </span>
+                @endif
+            </a>
             
             <button onclick="toggleModal('modalColoc')" class="w-full flex items-center space-x-3 p-4 text-gray-500 hover:bg-gray-50 rounded-2xl transition-all">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -87,6 +99,7 @@
                 </button>
             </div>
         </header>
+
         @if(session('error'))
             <div class="bg-red-500 text-white p-4 rounded-xl mb-4">
                 {{ session('error') }}
@@ -96,6 +109,38 @@
                 {{ session('success') }}
             </div>
         @endif
+
+        @if($invitations->count() > 0)
+        <div id="invitations-section" class="mb-10">
+            <h2 class="text-sm font-bold text-indigo-400 uppercase tracking-[2px] mb-4 ml-2">Invitations Reçues</h2>
+            <div class="grid grid-cols-1 gap-4">
+                @foreach($invitations as $invitation)
+                <div class="glass p-6 rounded-[32px] bg-white border border-indigo-100 flex justify-between items-center shadow-sm">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-gray-900 font-bold">Coloc : {{ $invitation->colocation->name }}</p>
+                            <p class="text-gray-500 text-sm">De: {{ $invitation->sender->firstname }} {{ $invitation->sender->lastname }}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <form action="{{ route('invitations.accept', $invitation->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-700 transition-all">Accepter</button>
+                        </form>
+                        <form action="{{ route('invitations.refuse', $invitation->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-600 text-sm font-bold rounded-xl hover:bg-gray-200 transition-all">Refuser</button>
+                        </form>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         <div class="mb-10 group">
             <div class="glass p-10 rounded-[40px] bg-white/40 flex flex-col md:flex-row justify-between items-center gap-8 hover:bg-white/60 transition-all duration-500">
                 <div class="flex items-center space-x-8">
@@ -159,7 +204,6 @@
                 @endif
             </div>
         </div>
-        
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
             <div class="p-8 bg-white rounded-[32px] shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
@@ -231,7 +275,7 @@
                 @csrf
                 <div class="space-y-2">
                     <label class="text-sm font-bold text-gray-700 ml-2">Désignation</label>
-                    <select name="categories" id="categories">
+                    <select name="categories_id" id="categories" class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none">
                         <option value="">select category</option>
                         @if($categories && $categories->count() > 0)
                             @foreach($categories as $category)
@@ -247,15 +291,18 @@
                         <label class="text-sm font-bold text-gray-700 ml-2">Montant (DH)</label>
                         <input type="number" name="amount" required class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none" placeholder="00.00">
                     </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
                     <div class="space-y-2">
-                        <label class="text-sm font-bold text-gray-700 ml-2">Type</label>
-                        <select name="category" class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none appearance-none">
-                            <option>Loyer</option>
-                            <option>Énergie</option>
-                            <option>Nourriture</option>
-                        </select>
+                        <label class="text-sm font-bold text-gray-700 ml-2">Description</label>
+                        <input type="text" name="description" required class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none" placeholder="Lma wdaw">
                     </div>
                 </div>
+                @if($colocation)
+                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                @else
+                    <input type="hidden" name="colocation_id" value="">
+                @endif
                 <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
                     Enregistrer le Paiement
                 </button>
@@ -268,69 +315,29 @@
             <button onclick="toggleModal('modalInvite')" class="absolute top-8 right-8 text-gray-400 hover:text-gray-900 transition-colors">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-        
-            <div class="w-16 h-16 bg-indigo-50 rounded-3xl flex items-center justify-center mb-6 text-indigo-600">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-        
             <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Inviter un membre</h2>
-            <p class="text-gray-500 mb-10">Entrez l'adresse email de votre futur colocataire.</p>
-
             <form action="{{ route('invitations.send') }}" method="POST" class="space-y-8">
                 @csrf
-                @if($colocation)
-                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
-                @else
-                    <input type="hidden" name="colocation_id" value="">
-                @endif
-
-                <div class="space-y-3">
-                    <label class="text-sm font-bold text-gray-700 ml-2">Adresse Email</label>
-                    <div class="relative">
-                        <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </span>
-                        <input type="email" name="email" required 
-                            class="w-full pl-14 pr-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 focus:bg-white outline-none transition-all" 
-                            placeholder="exemple@mail.com">
-                    </div>
-                </div>
-
-                <div class="space-y-3">
-                   @error('email')
-                        <p class="text-red-500 text-xs font-bold mb-4 italic">{{ $message }}</p>
-                    @enderror
-                </div>
+                @if($colocation) <input type="hidden" name="colocation_id" value="{{ $colocation->id }}"> @endif
+                <input type="email" name="email" required class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none" placeholder="exemple@mail.com">
                 <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
                     Envoyer l'invitation
                 </button>
             </form>
         </div>
     </div>
+
     <div id="modalCategorie" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 backdrop-blur-md">
         <div class="bg-white w-full max-w-lg rounded-[48px] p-12 shadow-2xl relative">
             <button onclick="toggleModal('modalCategorie')" class="absolute top-8 right-8 text-gray-400 hover:text-gray-900 transition-colors">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Nouvelle Catégorie</h2>
-            <p class="text-gray-500 mb-10">Organisez vos dépenses par types (Loyer, Courses...)</p>
-
             <form action="{{ route('categories.store') }}" method="POST" class="space-y-8">
                 @csrf
-                <div class="space-y-3">
-                    <label class="text-sm font-bold text-gray-700 ml-2">Nom de la Catégorie</label>
-                    <input type="text" name="name" required 
-                        class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 focus:bg-white outline-none transition-all" 
-                        placeholder="Ex: Factures, Internet...">
-                </div>
-
-                @if($colocation)
-                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
-                @else
-                    <input type="hidden" name="colocation_id" value="">
-                @endif
-            
-                <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
+                <input type="text" name="name" required class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none" placeholder="Ex: Courses...">
+                @if($colocation) <input type="hidden" name="colocation_id" value="{{ $colocation->id }}"> @endif
+                <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 transition-all">
                     Ajouter la Catégorie
                 </button>
             </form>
