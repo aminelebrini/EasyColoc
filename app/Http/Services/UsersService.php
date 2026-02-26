@@ -20,7 +20,12 @@
 
      public function getMember($userid)
      {
-      return $this->UsersRepository->getMember($userid);
+         return $this->UsersRepository->getMember($userid);
+     }
+
+     public function getCategorie()
+     {
+         return $this->UsersRepository->getCategorie();
      }
   }
 

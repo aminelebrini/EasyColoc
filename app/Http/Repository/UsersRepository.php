@@ -2,7 +2,8 @@
    
    namespace App\Http\Repository;
 
-   use App\Models\Colocation;
+use App\Models\Categorie;
+use App\Models\Colocation;
    use Illuminate\Support\Facades\DB;
 
    class UsersRepository
@@ -26,6 +27,10 @@
             ->whereNull('left_at')
             ->first();
 
+            if (!$userMembership) {
+                return collect(); 
+            }
+
             return DB::table('memberships')
             ->join('users', 'memberships.member_id', '=', 'users.id')
             ->where('memberships.colocation_id', $userMembership->colocation_id)
@@ -37,6 +42,13 @@
                 'users.id as user_id'
             )
             ->get();
+        }
+
+        public function getCategorie()
+        {
+            $categorie = Categorie::all();
+
+            return $categorie;
         }
    }
 

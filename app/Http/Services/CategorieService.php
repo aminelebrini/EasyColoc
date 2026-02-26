@@ -12,9 +12,9 @@
             $this->CategorieRepository = $CategorieRepository;
         }
 
-        public function CreateCategorie($name)
+        public function CreateCategorie($name, $colocationId)
         {
-            return $this->CategorieRepository->CreateCategorie($name);
+            return $this->CategorieRepository->CreateCategorie($name, $colocationId);
         }
 
   }

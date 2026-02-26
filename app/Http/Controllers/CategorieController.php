@@ -16,10 +16,11 @@ class CategorieController extends Controller
     public function CreateCategorie(Request $request)
     {
         $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'colocation_id' => 'required|exists:colocations,id'
         ]);
-
-        $categorie = $this->CategorieService->CreateCategorie($request->name);
+        
+        $categorie = $this->CategorieService->CreateCategorie($request->name, $request->colocation_id);
 
         if($categorie)
         {

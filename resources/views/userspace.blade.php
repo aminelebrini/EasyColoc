@@ -92,7 +92,7 @@
                 {{ session('error') }}
             </div>
         @elseif(session('success'))
-            <div class="bg-red-500 text-white p-4 rounded-xl mb-4">
+            <div class="bg-green-500 text-white p-4 rounded-xl mb-4">
                 {{ session('success') }}
             </div>
         @endif
@@ -208,7 +208,11 @@
                     <label class="text-sm font-bold text-gray-700 ml-2">Nombre de Membres (Numbers)</label>
                     <input type="number" name="number" required class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 focus:bg-white outline-none transition-all" placeholder="Ex: 4">
                 </div>
-                <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                @if($colocation)
+                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                @else
+                    <input type="hidden" name="colocation_id" value="">
+                @endif
                 <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
                     Lancer la Coloc
                 </button>
@@ -228,7 +232,14 @@
                 <div class="space-y-2">
                     <label class="text-sm font-bold text-gray-700 ml-2">Désignation</label>
                     <select name="categories" id="categories">
-                        <option value=""></option>
+                        <option value="">select category</option>
+                        @if($categories && $categories->count() > 0)
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        @else
+                            <option value="" disabled>Aucune catégorie disponible</option>
+                        @endif
                     </select>
                 </div>
                 <div class="grid grid-cols-2 gap-6">
@@ -269,6 +280,8 @@
                 @csrf
                 @if($colocation)
                     <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                @else
+                    <input type="hidden" name="colocation_id" value="">
                 @endif
 
                 <div class="space-y-3">
@@ -310,6 +323,12 @@
                         class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] focus:ring-4 focus:ring-indigo-500/10 focus:bg-white outline-none transition-all" 
                         placeholder="Ex: Factures, Internet...">
                 </div>
+
+                @if($colocation)
+                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                @else
+                    <input type="hidden" name="colocation_id" value="">
+                @endif
             
                 <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-[0.98] transition-all">
                     Ajouter la Catégorie

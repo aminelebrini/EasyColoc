@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdmindashController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ColocationController;
 use App\Http\Controllers\CreateColocation;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvitationController;
@@ -23,7 +24,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
 
 Route::middleware(['auth','role:user,admin'])->group(function(){
     Route::get('/userspace',[UsersController::class,'show'])->name('userspace');
-    Route::post('/userspace/create_colocation',[CreateColocation::class, 'create_colocation'])->name('colocations.store');
+    Route::post('/userspace/create_colocation',[ColocationController::class, 'create_colocation'])->name('colocations.store');
     Route::post('/userspace/create_expense',[ExpenseController::class, 'create_expense'])->name('expenses.store');
     Route::post('/userspace/sendInvitation',[InvitationController::class, 'sendInvitation'])->name('invitations.send');
     Route::post('/userspace/CreateCategorie',[CategorieController::class, 'CreateCategorie'])->name('categories.store');
