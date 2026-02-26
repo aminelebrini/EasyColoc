@@ -23,15 +23,9 @@ class UsersController extends Controller
         $colocation = $this->UsersService->getcol($userid);
         $memberships = $this->UsersService->getMember($userid);
         $categories  = $this->UsersService->getCategorie();
-        $expenses = $this->UsersService->getExpenses();
+        $expenses = $this->UsersService->getExpenses($userid);
         $invitations = $this->UsersService->getInvitations($user);
         
-        return view('userspace',[
-            'colocation' => $colocation,
-            'memberships' => $memberships,
-            'categories' => $categories,
-            'expenses' => $expenses,
-            'invitations' => $invitations
-        ]);
+        return view('userspace', compact('categories', 'invitations', 'colocation', 'expenses','memberships'));
     }
 }

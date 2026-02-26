@@ -27,9 +27,9 @@
       {
          return $this->UsersRepository->getCategorie();
       }
-      public function getExpenses()
+      public function getExpenses($userid)
       {
-         return $this->UsersRepository->getExpenses();
+         return $this->UsersRepository->getExpenses($userid);
       }
 
       public function getInvitations($user)

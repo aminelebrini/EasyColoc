@@ -14,9 +14,14 @@
     }
 
     public function sendInvitation($email, $colocationId)
-     {
+    {
         return $this->InvitationRepository->sendInvitation($email, $colocationId);
-     }
+    }
+
+    public function acceptInvitation($user)
+    {
+        return $this->InvitationRepository->acceptInvitation($user);
+    }
   }
 
 ?>

@@ -26,6 +26,22 @@ use Illuminate\Support\Facades\Hash;
             }
             
         }
+
+        public function acceptInvitation($user)
+        {
+            $acceptInvitation = Invitation::where('email', $user->email)->update(['status' => 'accepted']);
+
+            $getInvitation = Invitation::where('email', $user->email)->first();
+
+            $Addmemberships = DB::table('memberships')->insert([
+                'member_id' => $user->id,
+                'colocation_id' => $getInvitation->colocation_id,
+                'role' => 'member',
+                'joined_at' => now()
+            ]);
+
+            return $Addmemberships;
+        }
    }
 
 ?>

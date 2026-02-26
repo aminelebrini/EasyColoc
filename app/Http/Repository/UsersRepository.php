@@ -4,6 +4,7 @@
 
 use App\Models\Categorie;
 use App\Models\Colocation;
+use App\Models\Expense;
 use App\Models\Invitation;
 use Illuminate\Support\Facades\DB;
 
@@ -52,14 +53,21 @@ use Illuminate\Support\Facades\DB;
             return $categorie;
         }
 
-        public function getExpenses()
+        public function getExpenses($userid)
         {
-            // $userMembership = DB::table('memberships')
-            // ->where('member_id', $userid)
-            // ->whereNull('left_at')
-            // ->get(); 
+            $userMembership = DB::table('memberships')
+            ->where('member_id', $userid)
+            ->whereNull('left_at')
+            ->first();
 
-            // // $expences = 
+            $expences = Expense::join('categories' , 'expenses.category_id', '=', 'categories.id')
+            ->join('users', 'expenses.user_id', '=', 'users.id')
+            ->where('expenses.colocation_id', $userMembership->colocation_id)
+            ->select('expenses.*','users.firstname as debitorfirstname','users.lastname as debitorlastname',
+            'categories.name as category_name')->get();
+
+
+            return $expences;
         }
 
         public function getInvitations($user)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\InvitationService;
+use Illuminate\Support\Facades\Auth;
 
 class InvitationController extends Controller
 {
@@ -29,6 +30,20 @@ class InvitationController extends Controller
         }
         else{
             return redirect()->back()->with('success', "Invitation envoyée !");
+        }
+    }
+
+    public function acceptInvitation()
+    {
+        $user = Auth::user();
+        $accept = $this->InvitationService->acceptInvitation($user);
+
+        if($accept)
+        {
+            return redirect()->back()->with('success','the invitation has been successfuly accepted');
+        }
+        else{
+            return redirect()->back()->with('error', 'the invitation has not been accepted');
         }
     }
 }
