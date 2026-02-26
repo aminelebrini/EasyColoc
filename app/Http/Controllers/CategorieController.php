@@ -19,11 +19,15 @@ class CategorieController extends Controller
             'name' => 'required|string'
         ]);
 
-        $categorie = $this->CategorieService->CreateCategorie($name);
+        $categorie = $this->CategorieService->CreateCategorie($request->name);
 
         if($categorie)
         {
-            return redirect()->route('/userspace')->with('success', 'The category has been successfully created !');
+            return redirect()->back()->with('success', 'The category has been successfully created !');
+        }else{
+
+            return redirect()->back()->with('error', "The category doesn't created");
+        
         }
     }
 }

@@ -108,6 +108,9 @@
                                 <h2 class="text-3xl font-bold text-gray-900">{{ $colocation->name }}</h2>
                                 <span class="px-4 py-1.5 bg-green-100 text-green-700 text-[10px] font-black rounded-full uppercase tracking-widest shadow-sm">Actif</span>
                             </div>
+                            <div class="flex items-center gap-4">
+                                <h2 class="text-xl text-gray-900">Role : {{ $colocation->user_role }}</h2>
+                            </div>
                             <p class="text-gray-500 mt-2 font-medium flex items-center">
                                 <svg class="w-5 h-5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 MAX: {{ $colocation->numbers }}
@@ -128,6 +131,35 @@
                 </div>
             </div>
         </div>
+
+        <div class="mb-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @if($memberships)
+                    @foreach($memberships as $membership)
+                        <div class="glass p-6 rounded-[32px] bg-white/60 border border-white hover:bg-white transition-all group">
+                            <div class="flex items-center space-x-4">
+                                <div class="relative">
+                                    <img src="https://ui-avatars.com/api/?name={{ $membership->firstname }} . {{ $membership->lastname }}&background=6366f1&color=fff" 
+                                         class="w-14 h-14 rounded-2xl shadow-sm group-hover:scale-105 transition-transform">
+                                    <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
+                                </div>
+                                <div class="truncate">
+                                    <h3 class="font-bold text-gray-900 truncate">{{ $membership->firstname }} {{ $membership->lastname }}</h3>
+                                    <span class="px-2 py-0.5 {{ $membership->role == 'admin' ? 'bg-indigo-100 text-indigo-600' : 'bg-gray-100 text-gray-500' }} text-[10px] font-black rounded-md uppercase tracking-tighter">
+                                        {{ $membership->role }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-span-full p-8 text-center bg-gray-50 rounded-[32px] border-2 border-dashed border-gray-200">
+                        <p class="text-gray-400 font-medium italic">Aucun membre à afficher.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+        
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
             <div class="p-8 bg-white rounded-[32px] shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
