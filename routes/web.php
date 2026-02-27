@@ -22,6 +22,7 @@ Route::post('/register',[AuthController::class, 'register'])->name('register.pos
 
 Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admindash',[AdmindashController::class,'show'])->name('admindash');
+    Route::get('/logout',[AuthController::class, 'logout']);
 });
 
 Route::middleware(['auth','role:user,admin'])->group(function(){

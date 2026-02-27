@@ -53,9 +53,9 @@
 
         <div class="mt-auto pt-6 border-t border-gray-100">
             <div class="flex items-center space-x-3 p-2">
-                <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" class="w-10 h-10 rounded-full border-2 border-indigo-100">
+                <img src="https://ui-avatars.com/api/?name={{ auth()->user()->firstname }} . {{ auth()->user()->lastname }}&background=6366f1&color=fff" class="w-10 h-10 rounded-full border-2 border-indigo-100">
                 <div class="truncate">
-                    <p class="text-sm font-bold truncate">Admin EasyColoc</p>
+                    <p class="text-sm font-bold truncate">{{ auth()->user()->firstname }}  {{ auth()->user()->lastname }}</p>
                     <a href="/logout" class="text-[10px] font-black uppercase text-red-500 hover:underline">Déconnexion</a>
                 </div>
             </div>
@@ -82,8 +82,9 @@
                 </div>
                 <div>
                     <h2 class="text-gray-500 font-semibold text-sm uppercase tracking-wider">Utilisateurs</h2>
-                    <p class="text-4xl font-black text-gray-900 mt-1">1,284</p>
-                    <p class="text-green-500 text-xs font-bold mt-2">↑ 12% ce mois</p>
+                    <p class="text-4xl font-black text-gray-900 mt-1">{{ $users->count() }}</p>
+
+                    <p class="text-green-500 text-xs font-bold mt-2">↑ {{ $users->count() / 30 }} ce mois</p>
                 </div>
             </div>
 
@@ -93,7 +94,7 @@
                 </div>
                 <div>
                     <h2 class="text-gray-500 font-semibold text-sm uppercase tracking-wider">Colocations</h2>
-                    <p class="text-4xl font-black text-gray-900 mt-1">452</p>
+                    <p class="text-4xl font-black text-gray-900 mt-1">{{ $colocations->count() }}</p>
                     <p class="text-indigo-500 text-xs font-bold mt-2">Actives maintenant</p>
                 </div>
             </div>
@@ -103,9 +104,8 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-width="2"/></svg>
                 </div>
                 <div>
-                    <h2 class="text-gray-500 font-semibold text-sm uppercase tracking-wider">Flux Total</h2>
-                    <p class="text-4xl font-black text-gray-900 mt-1">84,250 <span class="text-lg">DH</span></p>
-                    <p class="text-emerald-500 text-xs font-bold mt-2">Transactions sécurisées</p>
+                    <h2 class="text-gray-500 font-semibold text-sm uppercase tracking-wider">Dépenses Totales</h2>
+                    <p class="text-4xl font-black text-gray-900 mt-1">{{ $expenses->sum('amount') }} <span class="text-lg">DH</span></p>
                 </div>
             </div>
         </div>
@@ -126,30 +126,28 @@
                             <th class="p-6 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Créateur</th>
                             <th class="p-6 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Membres</th>
                             <th class="p-6 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Statut</th>
-                            <th class="p-6 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50">
+                        @if($createdcol && $createdcol->count() > 0)
+                        @foreach($createdcol as $coloc)
                         <tr class="hover:bg-indigo-50/30 transition-colors">
                             <td class="p-6">
-                                <span class="font-bold text-gray-800">Appartement 404</span>
+                                <span class="font-bold text-gray-800">{{ $coloc->name }}</span>
                             </td>
                             <td class="p-6">
                                 <div class="flex items-center space-x-2">
                                     <div class="w-6 h-6 bg-indigo-100 rounded-full text-[10px] flex items-center justify-center font-bold text-indigo-600">JD</div>
-                                    <span class="text-sm">John Doe</span>
+                                    <span class="text-sm">{{ $coloc->firstname }} {{ $coloc->lastname }}</span>
                                 </div>
                             </td>
-                            <td class="p-6 text-sm">4 Places</td>
+                            <td class="p-6 text-sm">{{ $coloc->numbers }} Places</td>
                             <td class="p-6">
-                                <span class="px-3 py-1 bg-green-100 text-green-600 text-[10px] font-black rounded-full uppercase">Actif</span>
-                            </td>
-                            <td class="p-6">
-                                <button class="text-gray-400 hover:text-indigo-600 transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2"/></svg>
-                                </button>
+                                <span class="px-3 py-1 bg-green-100 text-green-600 text-[10px] font-black rounded-full uppercase">{{ $coloc->status }}</span>
                             </td>
                         </tr>
+                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
