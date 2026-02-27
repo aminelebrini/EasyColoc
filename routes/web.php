@@ -9,6 +9,8 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\MembersController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\SettlementContorller;
+use App\Models\Settlement;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,6 +32,7 @@ Route::middleware(['auth','role:user,admin'])->group(function(){
     Route::post('/userspace/CreateCategorie',[CategorieController::class, 'CreateCategorie'])->name('categories.store');
     Route::post('/userspace/acceptInvitation',[InvitationController::class,'acceptInvitation'])->name('invitations.accept');
     Route::post('/userspace/RefusInvitation',[InvitationController::class,'RefusInvitation'])->name('invitations.refuse');
+    Route::post('/userspace/Paying',[SettlementContorller::class,'Paying'])->name('settlements.pay');
     Route::get('/logout',[AuthController::class, 'logout']);
 
 });

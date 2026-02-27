@@ -11,5 +11,6 @@ class Settlement extends Model
         'is_paid',
         'debtor_id',
         'creditor_id',
+        'expense_id',
     ];
 }

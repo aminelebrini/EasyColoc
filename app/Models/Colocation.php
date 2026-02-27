@@ -18,4 +18,5 @@ class Colocation extends Model
         return $this->hasOne(User::class);
     }
     
+    
 }

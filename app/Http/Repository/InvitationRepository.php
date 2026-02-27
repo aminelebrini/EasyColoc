@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
    {
         public function sendInvitation($email, $colocationId)
         {
+            // dd($email)
             $user = User::where('email', $email)->first();
             if($user)
             {

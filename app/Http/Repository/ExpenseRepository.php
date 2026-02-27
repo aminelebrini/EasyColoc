@@ -22,17 +22,26 @@ use Illuminate\Support\Facades\DB;
             ->where('colocation_id', $colocation_id)
             ->where('member_id', $user)->get();
 
+            $totalamount = $expense->amount;
+
             $totalMembers = $members->count();
             
-            $amountforperson = $amount / $totalMembers;
+            $amountforperson = $totalamount / $totalMembers;
 
+            // dd($expense);
             foreach($members as $member)
             {
-                $settlements = Settlement::create([
-                    'amount' => $amount,
-                    'debtor_id' => $member->id,
-                    'creditor_id' => $user,
-                ]);
+                $isPayer = ($member->member_id == $user);
+
+                if ($isPayer) {
+                    Settlement::create([
+                        'amount' => $amountforperson,
+                        'is_paid' => $isPayer ? true : false,
+                        'debtor_id' => $member->id,
+                        'creditor_id' => $user,
+                        'expense_id' => $expense->id
+                    ]);
+                }
             }
 
 

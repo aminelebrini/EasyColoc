@@ -16,7 +16,7 @@ return new class extends Migration
             $table->decimal('amount',10,2);
             $table->text('description');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('colocation_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('colocation_id')->constrained('colocations')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });

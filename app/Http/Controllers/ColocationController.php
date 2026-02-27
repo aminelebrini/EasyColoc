@@ -27,7 +27,7 @@ class ColocationController extends Controller
         
         if($colocation)
         {
-            return redirect()->route('memberspace')->with('succesfuly to create this colocation');
+            return redirect()->back()->with('succesfuly to create this colocation');
         } 
     }
 }

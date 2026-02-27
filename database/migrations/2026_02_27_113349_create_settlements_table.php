@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('is_paid')->default(false);
             $table->foreignId('debtor_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('creditor_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('expense_id')->constrained('expenses')->onDelete('cascade');
             $table->timestamps();
         });
     }

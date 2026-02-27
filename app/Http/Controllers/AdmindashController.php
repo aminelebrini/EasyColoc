@@ -11,8 +11,4 @@ class AdmindashController extends Controller
         return view('admindash');
     }
 
-    public function index()
-    {
-        
-    }
 }

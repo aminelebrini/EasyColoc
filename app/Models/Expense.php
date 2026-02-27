@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Expense extends Model
 {
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    
     protected $fillable = [
         'amount',
         'description',

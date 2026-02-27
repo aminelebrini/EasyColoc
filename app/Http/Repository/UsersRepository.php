@@ -54,21 +54,34 @@ use Illuminate\Support\Facades\DB;
         }
 
         public function getExpenses($userid)
-        {
-            $userMembership = DB::table('memberships')
-            ->where('member_id', $userid)
-            ->whereNull('left_at')
-            ->first();
+{
+    $userMembership = DB::table('memberships')
+        ->where('member_id', $userid)
+        ->whereNull('left_at')
+        ->first();
 
-            $expences = Expense::join('categories' , 'expenses.category_id', '=', 'categories.id')
-            ->join('users', 'expenses.user_id', '=', 'users.id')
-            ->where('expenses.colocation_id', $userMembership->colocation_id)
-            ->select('expenses.*','users.firstname as debitorfirstname','users.lastname as debitorlastname',
-            'categories.name as category_name')->get();
+    if (!$userMembership) return collect();
 
+    $membersCount = DB::table('memberships')
+        ->where('colocation_id', $userMembership->colocation_id)
+        ->whereNull('left_at')
+        ->count();
 
-            return $expences;
-        }
+    return Expense::join('categories', 'expenses.category_id', '=', 'categories.id')
+        ->join('users', 'expenses.user_id', '=', 'users.id')
+        // Join simple bla function
+        ->leftJoin('settlements', 'expenses.id', '=', 'settlements.expense_id')
+        ->where('expenses.colocation_id', $userMembership->colocation_id)
+        ->select(
+            'expenses.*',
+            'users.firstname as creditorfirstname',
+            'categories.name as category_name',
+            'settlements.is_paid as payment_status',
+            'settlements.debtor_id as paid_by_user' // Ghadi n-htajou hada f l-Blade
+        )
+        ->get();
+
+}
 
         public function getInvitations($user)
         {
