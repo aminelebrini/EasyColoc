@@ -137,6 +137,9 @@
                         </div>
                         <input type="email" name="email" placeholder="Email" required class="input-focus w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-[20px] focus:outline-none focus:ring-4 focus:ring-indigo-500/10">
                         <input type="password" name="password" placeholder="Mot de passe" required class="input-focus w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-[20px] focus:outline-none focus:ring-4 focus:ring-indigo-500/10">
+                        @if(session('error'))
+                            <div class="text-red-500 text-sm font-medium">{{ session('error') }}</div>
+                        @endif
                         <button type="submit" class="w-full py-4 bg-indigo-600 text-white rounded-[20px] font-bold text-lg shadow-[0_20px_40px_-10px_rgba(79,70,229,0.3)] hover:bg-indigo-700 transition-all duration-300">
                             Créer mon compte
                         </button>

@@ -23,18 +23,20 @@ class AuthController extends Controller
 
         $user = $this->AuthService->login($request->email,$request->password);
 
-        Auth::login($user);
-        $request->session()->regenerate();
-
-        if($user->role === 'admin')
+        if($user)
         {
-            return redirect()->route('admindash'); 
+            Auth::login($user);
+            $request->session()->regenerate();
+            if($user->role === 'admin')
+            {
+                return redirect()->route('admindash')->with('success', 'Welcome to the admin dashboard!'); 
+            }
+            if($user->role === 'user')
+            {
+                return redirect()->route('userspace')->with('success', 'Welcome to your user space!');
+            }
         }
-        if($user->role === 'user')
-        {
-            return redirect()->route('userspace');
-        }
-
+        return redirect()->route('login')->with('error', 'Invalid email or password');
     }
 
     public function register(Request $request)
