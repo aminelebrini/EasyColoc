@@ -44,7 +44,7 @@ class ColocationController extends Controller
             return redirect()->route('userspace')->with('success', 'You have successfully left the colocation');
         }
         else{
-            return redirect()->back()->with('error', 'Failed to leave the colocation');
+            return redirect()->route('userspace')->with('error', 'Failed to leave the colocation');
         }
     }
 }
