@@ -12,8 +12,20 @@ use Illuminate\Support\Facades\Hash;
         {
             // dd($email)
             $user = User::where('email', $email)->first();
-            if($user)
-            {
+
+            $userRole = DB::table('memberships')
+            ->where('member_id', $user->id)
+            ->whereNull('left_at')
+            ->select('role')
+            ->first();
+
+            if ($userRole) {
+                return [
+                    'status'  => false,
+                    'message' => "Action interdite : Cet utilisateur fait déjà partie d'une colocation."
+                ];
+            }
+            
                 $Invitation = Invitation::create([
                   'email' => $email,
                   'token' => Hash::make($email),
@@ -22,9 +34,9 @@ use Illuminate\Support\Facades\Hash;
                 ]);
 
                 $Invitation->save();
-            }else{
-                return false;
-            }
+
+                return $Invitation;
+            
             
         }
 

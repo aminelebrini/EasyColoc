@@ -28,11 +28,11 @@ class SettlementContorller extends Controller
             );
 
             if ($settlements) 
-                {
-                    return redirect()->back()->with('success', 'Settlement successful');
-                } else {
-                    return redirect()->back()->with('error', 'Settlement failed');
-                }
-
+            {
+                return redirect()->back()->with('success', 'Settlement successful');
+            } else {
+                return redirect()->back()->with('error', 'Settlement failed');
             }
+            // dd($settlements);
+    }
 }

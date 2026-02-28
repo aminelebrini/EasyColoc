@@ -49,7 +49,7 @@ class AuthController extends Controller
         $register = $this->AuthService->register($request->firstname, $request->lastname, $request->email,$request->password);
         if($register)
         {
-            return redirect()->back();
+            return back();
         }
     }
 

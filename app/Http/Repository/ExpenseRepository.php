@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\DB;
 
             $members = DB::table('memberships')
             ->where('colocation_id', $colocation_id)
-            ->where('member_id', $user)->get();
+            ->whereNull('left_at')
+            ->get();
 
             $totalamount = $expense->amount;
 
@@ -28,21 +29,19 @@ use Illuminate\Support\Facades\DB;
             
             $amountforperson = $totalamount / $totalMembers;
 
-            // dd($expense);
-            foreach($members as $member)
-            {
-                $isPayer = ($member->member_id == $user);
-
-                if ($isPayer) {
-                    Settlement::create([
-                        'amount' => $amountforperson,
-                        'is_paid' => $isPayer ? true : false,
-                        'debtor_id' => $member->id,
-                        'creditor_id' => $user,
-                        'expense_id' => $expense->id
-                    ]);
-                }
-            }
+        foreach ($members as $member) {
+            Settlement::create([
+            'amount' => $amountforperson,    
+            'is_paid'    => ($member->member_id == $user) ? true : false,
+            'debtor_id'  => $member->member_id,
+            'creditor_id' => $user,
+            'expense_id' => $expense->id,
+            'created_at' => now(),
+            'updated_at' => now(),
+            ]);
+        }
+        return $expense;
+            
 
 
         }

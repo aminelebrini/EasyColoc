@@ -5,7 +5,7 @@
     use App\Models\User;
     use App\Models\Colocation;
     use App\Models\Expense;
-    use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
     class AdmindashRepository
     {
@@ -14,9 +14,11 @@
             return User::all();
         }
     
-        public function getAllColocations()
+        public function getColocations($user)
         {
-            return Colocation::all();
+            return DB::table('memberships')->join('colocations', 'memberships.colocation_id', '=', 'colocations.id')
+            ->where('memberships.member_id', $user->id)
+            ->select('colocations.*', 'memberships.role as user_role')->first();
         }
     
         public function getAllExpenses()

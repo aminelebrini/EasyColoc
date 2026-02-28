@@ -117,7 +117,7 @@
                         @if($colocation->user_role === 'owner')
                             <button onclick="toggleModal('modalInvite')" class="px-6 py-3 bg-indigo-50 text-indigo-600 font-bold rounded-2xl hover:bg-indigo-100 transition-all">Inviter +</button>
                         @else
-                            <button class="px-6 py-3 bg-red-50 text-red-500 font-bold rounded-2xl hover:bg-red-500 hover:text-white transition-all">Quitter</button>
+                            <button onclick="toggleModal('modalLeaveColoc')" class="px-6 py-3 bg-red-50 text-red-500 font-bold rounded-2xl hover:bg-red-500 hover:text-white transition-all">Quitter</button>
                         @endif
                     @endif
                 </div>
@@ -179,42 +179,36 @@
                     <tbody class="divide-y divide-gray-50">
                         @if(isset($expenses) && $expenses->count() > 0)
                             @foreach($expenses as $expense)
+                            @if($expense->paid_by_user === auth()->id() || $expense->debtor_id === auth()->id())
                                 <tr class="hover:bg-indigo-50/30 transition-colors group">
                                     <td class="p-6">
                                         <div class="flex items-center space-x-3">
-                                            <img src="https://ui-avatars.com/api/?name={{ $expense->creditorfirstname }}&background=6366f1&color=fff" class="w-8 h-8 rounded-lg">
-                                            <span class="font-bold text-gray-700 text-sm">{{ $expense->creditorfirstname }}</span>
+                                            <img src="https://ui-avatars.com/api/?name={{ $expense->debtorfirstname }}&background=6366f1&color=fff" class="w-8 h-8 rounded-lg">
+                                            <span class="font-bold text-gray-700 text-sm">{{ $expense->debtorfirstname }} {{ $expense->debtorlastname }}</span>
                                         </div>
                                     </td>
                                     <td class="p-6 text-sm font-medium text-gray-600">{{ $expense->description }}</td>
                                     <td class="p-6">
-                                        <span class="font-bold text-gray-900">{{ number_format($expense->amount / ($expense->members_count ?? 1), 2) }} DH</span>
+                                        <span class="font-bold text-gray-900">{{ number_format($expense->settlement_amount / ($expense->members_count ?? 1), 2) }} DH</span>
                                     </td>
                                     <td class="p-6">
-                                    @php 
-                                        $isCreditor = (auth()->id() === $expense->user_id);
-                                        $hasPaidDebt = isset($expense->user_settlement_status) && $expense->user_settlement_status === 'paid';
-
-                                        $isPaid = $isCreditor || $hasPaidDebt || ($expense->is_settled == true); 
-                                    @endphp
-
-                                    @if($isPaid)
+                                    @if($expense->payment_status === true)
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black bg-green-100 text-green-700 uppercase border border-green-200">
                                             ● Paid
                                         </span>
-                                    @else
+                                    @elseif($expense->payment_status === false)
                                         <form action="{{ route('settlements.pay')}}" method="POST">
                                             @csrf
                                             <input type="hidden" name="expense_id" value="{{ $expense->id }}">
-                                            <input type="hidden" name="user_id" value="{{ $expense->user_id }}">
+                                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                             <button type="submit" class="px-4 py-1.5 bg-indigo-600 text-white text-[10px] font-bold rounded-lg hover:bg-indigo-700 transition-all shadow-sm">
                                                 PAYER MA PART
                                             </button>
-    
                                         </form>
                                     @endif
                                 </td>
                                 </tr>
+                            @endif
                             @endforeach
                         @else
                             <tr><td colspan="4" class="p-20 text-center text-gray-400 italic">Aucune dépense enregistrée.</td></tr>
@@ -303,11 +297,34 @@
         </div>
     </div>
 
+    <div id="modalLeaveColoc" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 backdrop-blur-md">
+        <div class="bg-white w-full max-w-lg rounded-[48px] p-12 shadow-2xl relative">
+            <button onclick="toggleModal('modalLeaveColoc')" class="absolute top-8 right-8 text-gray-400"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-6">Quitter la colocation</h2>
+            <p class="text-gray-700 mb-6">Êtes-vous sûr de vouloir quitter cette colocation ?</p>
+            <form action="" method="POST">
+                @csrf
+                @if(isset($colocation))
+                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                @endif
+                <button type="submit" class="w-full py-5 bg-red-500 text-white rounded-[24px] font-bold text-xl shadow-xl shadow-red-100 hover:bg-red-600 transition-all">Confirmer</button>
+            </form>
+        </div>
+    </div>
+
+    <div ></div>
     @if(session('success'))
         <div class="fixed bottom-10 right-10 bg-white border-l-4 border-green-500 shadow-2xl p-6 rounded-2xl flex items-center space-x-4 animate-bounce z-[100]">
             <div class="bg-green-100 p-2 rounded-full text-green-600 font-bold">✓</div>
             <p class="font-bold text-gray-800">{{ session('success') }}</p>
         </div>
+    @else
+        @if(session('error'))
+            <div class="fixed bottom-10 right-10 bg-white border-l-4 border-red-500 shadow-2xl p-6 rounded-2xl flex items-center space-x-4 animate-bounce z-[100]">
+                <div class="bg-red-100 p-2 rounded-full text-red-600 font-bold">✗</div>
+                <p class="font-bold text-gray-800">{{ session('error') }}</p>
+            </div>
+        @endif
     @endif
 
 </body>

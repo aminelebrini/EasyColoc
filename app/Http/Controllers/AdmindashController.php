@@ -17,7 +17,8 @@ class AdmindashController extends Controller
     {
         $user = Auth::user();
         $users = $this->AdmindashService->getAllUsers();
-        $colocations = $this->AdmindashService->getAllColocations();
+        $colocations = $this->AdmindashService->getColocations($user);
+        // dd($colocations);
         $createdcol = $this->AdmindashService->getAllCreatedColocations();
         $expenses = $this->AdmindashService->getAllExpenses();
         return view('admindash', compact('users', 'colocations', 'createdcol', 'expenses'));

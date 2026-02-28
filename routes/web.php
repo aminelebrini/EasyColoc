@@ -19,22 +19,29 @@ Route::get('/', function () {
 
 Route::post('/login',[AuthController::class, 'login'])->name('login.post');
 Route::post('/register',[AuthController::class, 'register'])->name('register.post');
+Route::middleware('auth')->get('/logout',[AuthController::class, 'logout'])->name('logout');
+
 
 Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admindash',[AdmindashController::class,'show'])->name('admindash');
-    Route::get('/logout',[AuthController::class, 'logout']);
+    Route::post('/colocations', [ColocationController::class, 'create_colocation'])->name('colocations.store');
+    Route::post('/expenses', [ExpenseController::class, 'create_expense'])->name('expenses.store');
+    Route::post('/invitations', [InvitationController::class, 'sendInvitation'])->name('invitations.send');
+    Route::post('/categories', [CategorieController::class, 'CreateCategorie'])->name('categories.store');
+    Route::post('/accept-invitation', [InvitationController::class, 'acceptInvitation'])->name('invitations.accept');
+    Route::post('/refuse-invitation', [InvitationController::class, 'RefusInvitation'])->name('invitations.refuse');
+    Route::post('/paying', [SettlementContorller::class, 'Paying'])->name('settlements.pay');
 });
 
-Route::middleware(['auth','role:user,admin'])->group(function(){
+Route::middleware(['auth','role:user'])->group(function(){
     Route::get('/userspace',[UsersController::class,'show'])->name('userspace');
-    Route::post('/userspace/create_colocation',[ColocationController::class, 'create_colocation'])->name('colocations.store');
-    Route::post('/userspace/create_expense',[ExpenseController::class, 'create_expense'])->name('expenses.store');
-    Route::post('/userspace/sendInvitation',[InvitationController::class, 'sendInvitation'])->name('invitations.send');
-    Route::post('/userspace/CreateCategorie',[CategorieController::class, 'CreateCategorie'])->name('categories.store');
-    Route::post('/userspace/acceptInvitation',[InvitationController::class,'acceptInvitation'])->name('invitations.accept');
-    Route::post('/userspace/RefusInvitation',[InvitationController::class,'RefusInvitation'])->name('invitations.refuse');
-    Route::post('/userspace/Paying',[SettlementContorller::class,'Paying'])->name('settlements.pay');
-    Route::get('/logout',[AuthController::class, 'logout']);
+    Route::post('/colocations', [ColocationController::class, 'create_colocation'])->name('colocations.store');
+    Route::post('/expenses', [ExpenseController::class, 'create_expense'])->name('expenses.store');
+    Route::post('/invitations', [InvitationController::class, 'sendInvitation'])->name('invitations.send');
+    Route::post('/categories', [CategorieController::class, 'CreateCategorie'])->name('categories.store');
+    Route::post('/accept-invitation', [InvitationController::class, 'acceptInvitation'])->name('invitations.accept');
+    Route::post('/refuse-invitation', [InvitationController::class, 'RefusInvitation'])->name('invitations.refuse');
+    Route::post('/paying', [SettlementContorller::class, 'Paying'])->name('settlements.pay');
 
 });
 

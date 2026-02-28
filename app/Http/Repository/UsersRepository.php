@@ -54,8 +54,8 @@ use Illuminate\Support\Facades\DB;
         }
 
         public function getExpenses($userid)
-{
-    $userMembership = DB::table('memberships')
+       {
+        $userMembership = DB::table('memberships')
         ->where('member_id', $userid)
         ->whereNull('left_at')
         ->first();
@@ -68,16 +68,21 @@ use Illuminate\Support\Facades\DB;
         ->count();
 
     return Expense::join('categories', 'expenses.category_id', '=', 'categories.id')
-        ->join('users', 'expenses.user_id', '=', 'users.id')
-        // Join simple bla function
-        ->leftJoin('settlements', 'expenses.id', '=', 'settlements.expense_id')
+        ->join('users as creditor', 'expenses.user_id', '=', 'creditor.id')
+        ->join('settlements', 'expenses.id', '=', 'settlements.expense_id')
+        ->join('users as debtor', 'settlements.debtor_id', '=', 'debtor.id')
         ->where('expenses.colocation_id', $userMembership->colocation_id)
         ->select(
             'expenses.*',
-            'users.firstname as creditorfirstname',
+            'creditor.firstname as creditorfirstname',
+            'creditor.lastname as creditorlastname',
+            'debtor.firstname as debtorfirstname',
+            'debtor.lastname as debtorlastname',
             'categories.name as category_name',
+            'settlements.amount as settlement_amount',
             'settlements.is_paid as payment_status',
-            'settlements.debtor_id as paid_by_user' // Ghadi n-htajou hada f l-Blade
+            'settlements.creditor_id as paid_to_user',
+            'settlements.debtor_id as paid_by_user'
         )
         ->get();
 

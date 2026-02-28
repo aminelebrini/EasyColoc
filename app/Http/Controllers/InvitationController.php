@@ -23,15 +23,11 @@ class InvitationController extends Controller
         ]);
         
         $invitation = $this->InvitationService->sendInvitation($request->email, $request->colocation_id);
-
-        if(!$invitation)
-        {
-            return redirect()->back()->with('error', "The user doesn't exist with this email");
+        if (!$invitation['status']) {
+            return back()->with('error', $invitation['message']);
         }
-        else{
-            return redirect()->back()->with('success', "Invitation envoyée !");
+            return back()->with('success', $invitation['message']);
         }
-    }
 
     public function acceptInvitation()
     {

@@ -18,9 +18,9 @@
             return $this->AdmindashRepository->getAllUsers();
         }
     
-        public function getAllColocations()
+        public function getColocations($user)
         {
-            return $this->AdmindashRepository->getAllColocations();
+            return $this->AdmindashRepository->getColocations($user);
         }
     
         public function getAllExpenses()
