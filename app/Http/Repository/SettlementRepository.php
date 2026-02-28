@@ -4,6 +4,7 @@ namespace App\Http\Repository;
 
 use App\Models\Expense;
 use App\Models\Settlement;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class SettlementRepository
@@ -19,6 +20,7 @@ class SettlementRepository
             $settlement->is_paid = true;
             $settlement->save();
 
+            User::where('id', $userId)->update(['reputation' => DB::raw('reputation + 1')]);
             return $settlement;
         }
         return false;

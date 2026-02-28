@@ -123,41 +123,41 @@
                 </div>
             </div>
         </div>
+        
         @if(isset($invitations) && $invitations->count() > 0)
-<div class="mb-10 animate-fade-in">
-    <div class="flex items-center space-x-3 mb-6">
-        <div class="w-2 h-8 bg-orange-500 rounded-full"></div>
-        <h2 class="text-2xl font-bold text-gray-900">Invitations en attente</h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach($invitations as $invitation)
-        <div class="glass p-6 rounded-[32px] bg-white/60 border border-white shadow-sm hover:shadow-md transition-all">
-            <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="mb-10 animate-fade-in">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-2 h-8 bg-orange-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900">Invitations en attente</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($invitations as $invitation)
+                <div class="glass p-6 rounded-[32px] bg-white/60 border border-white shadow-sm hover:shadow-md transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 line-clamp-1">{{ $invitation->colocation_name }}</h3>
+                                <p class="text-xs text-gray-500 font-medium italic">Par: {{ $invitation->sender_name }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-bold text-gray-900 line-clamp-1">{{ $invitation->colocation_name }}</h3>
-                        <p class="text-xs text-gray-500 font-medium italic">Par: {{ $invitation->sender_name }}</p>
+                    <div class="flex gap-2 mt-6">
+                        <form action="{{ route('invitations.accept')}}" method="POST" class="flex-1">
+                            @csrf
+                            <button type="submit" class="w-full py-3 bg-indigo-600 text-white text-xs font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
+                                Accepter
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </div>
-
-            <div class="flex gap-2 mt-6">
-                <form action="{{ route('invitations.accept')}}" method="POST" class="flex-1">
-                    @csrf
-                    <button type="submit" class="w-full py-3 bg-indigo-600 text-white text-xs font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
-                        Accepter
-                    </button>
-                </form>
+                @endforeach
             </div>
         </div>
-        @endforeach
-    </div>
-</div>
-@endif
+        @endif
+
         <div class="bg-white rounded-[40px] border border-gray-100 shadow-sm overflow-hidden">
             <div class="p-10 border-b border-gray-50 flex justify-between items-center">
                 <div>
@@ -179,36 +179,50 @@
                     <tbody class="divide-y divide-gray-50">
                         @if(isset($expenses) && $expenses->count() > 0)
                             @foreach($expenses as $expense)
-                            @if($expense->paid_by_user === auth()->id() || $expense->debtor_id === auth()->id())
-                                <tr class="hover:bg-indigo-50/30 transition-colors group">
-                                    <td class="p-6">
-                                        <div class="flex items-center space-x-3">
-                                            <img src="https://ui-avatars.com/api/?name={{ $expense->debtorfirstname }}&background=6366f1&color=fff" class="w-8 h-8 rounded-lg">
-                                            <span class="font-bold text-gray-700 text-sm">{{ $expense->debtorfirstname }} {{ $expense->debtorlastname }}</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-6 text-sm font-medium text-gray-600">{{ $expense->description }}</td>
-                                    <td class="p-6">
-                                        <span class="font-bold text-gray-900">{{ number_format($expense->settlement_amount / ($expense->members_count ?? 1), 2) }} DH</span>
-                                    </td>
-                                    <td class="p-6">
-                                    @if($expense->payment_status === true)
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black bg-green-100 text-green-700 uppercase border border-green-200">
-                                            ● Paid
-                                        </span>
-                                    @elseif($expense->payment_status === false)
-                                        <form action="{{ route('settlements.pay')}}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="expense_id" value="{{ $expense->id }}">
-                                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                                            <button type="submit" class="px-4 py-1.5 bg-indigo-600 text-white text-[10px] font-bold rounded-lg hover:bg-indigo-700 transition-all shadow-sm">
-                                                PAYER MA PART
-                                            </button>
-                                        </form>
-                                    @endif
-                                </td>
-                                </tr>
-                            @endif
+                                @if($expense->paid_to_user === auth()->id() || $expense->paid_by_user === auth()->id())
+                                    <tr class="hover:bg-indigo-50/30 transition-colors group">
+                                        <td class="p-6">
+                                            <div class="flex items-center space-x-3">
+                                                <img src="https://ui-avatars.com/api/?name={{ $expense->debtorfirstname }}&background=6366f1&color=fff" class="w-8 h-8 rounded-lg">
+                                                <div>
+                                                    <span class="font-bold text-gray-700 text-sm block">{{ $expense->debtorfirstname }} {{ $expense->debtorlastname }}</span>
+                                                    @if($expense->paid_by_user === auth()->id() && $expense->paid_to_user !== auth()->id())
+                                                        <span class="text-[9px] text-indigo-500 font-bold uppercase">Doit vous payer</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="p-6 text-sm font-medium text-gray-600">
+                                            {{ $expense->description }}
+                                            <span class="block text-[10px] text-gray-400 italic">Doit Payé par: {{ $expense->debtorfirstname }}</span>
+                                        </td>
+                                        <td class="p-6">
+                                            <span class="font-bold text-gray-900">{{ number_format($expense->settlement_amount, 2) }} DH</span>
+                                        </td>
+                                        <td class="p-6">
+                                            @if($expense->payment_status === true)
+                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black bg-green-100 text-green-700 uppercase border border-green-200">
+                                                    ● Paid
+                                                </span>
+                                            @else
+                                                @if($expense->paid_by_user === auth()->id())
+                                                    <form action="{{ route('settlements.pay')}}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="expense_id" value="{{ $expense->id }}">
+                                                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                                        <button type="submit" class="px-4 py-1.5 bg-indigo-600 text-white text-[10px] font-bold rounded-lg hover:bg-indigo-700 transition-all shadow-sm">
+                                                            PAYER MA PART
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black bg-orange-50 text-orange-600 uppercase border border-orange-100">
+                                                        En attente
+                                                    </span>
+                                                @endif
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         @else
                             <tr><td colspan="4" class="p-20 text-center text-gray-400 italic">Aucune dépense enregistrée.</td></tr>
@@ -249,7 +263,6 @@
             </div>
             <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Inviter un colocataire</h2>
             <p class="text-gray-500 mb-8">Sifet invitation par email bach it-zad m'akom f l-hisab.</p>
-            
             <form action="{{ route('invitations.send') }}" method="POST" class="space-y-6">
                 @csrf
                 @if(isset($colocation))
@@ -302,29 +315,29 @@
             <button onclick="toggleModal('modalLeaveColoc')" class="absolute top-8 right-8 text-gray-400"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg></button>
             <h2 class="text-3xl font-extrabold text-gray-900 mb-6">Quitter la colocation</h2>
             <p class="text-gray-700 mb-6">Êtes-vous sûr de vouloir quitter cette colocation ?</p>
-            <form action="" method="POST">
+            <form action="{{ route('colocations.leave') }}" method="POST">
                 @csrf
                 @if(isset($colocation))
                     <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                 @endif
                 <button type="submit" class="w-full py-5 bg-red-500 text-white rounded-[24px] font-bold text-xl shadow-xl shadow-red-100 hover:bg-red-600 transition-all">Confirmer</button>
             </form>
         </div>
     </div>
 
-    <div ></div>
     @if(session('success'))
         <div class="fixed bottom-10 right-10 bg-white border-l-4 border-green-500 shadow-2xl p-6 rounded-2xl flex items-center space-x-4 animate-bounce z-[100]">
             <div class="bg-green-100 p-2 rounded-full text-green-600 font-bold">✓</div>
             <p class="font-bold text-gray-800">{{ session('success') }}</p>
         </div>
-    @else
-        @if(session('error'))
-            <div class="fixed bottom-10 right-10 bg-white border-l-4 border-red-500 shadow-2xl p-6 rounded-2xl flex items-center space-x-4 animate-bounce z-[100]">
-                <div class="bg-red-100 p-2 rounded-full text-red-600 font-bold">✗</div>
-                <p class="font-bold text-gray-800">{{ session('error') }}</p>
-            </div>
-        @endif
+    @endif
+    
+    @if(session('error'))
+        <div class="fixed bottom-10 right-10 bg-white border-l-4 border-red-500 shadow-2xl p-6 rounded-2xl flex items-center space-x-4 animate-bounce z-[100]">
+            <div class="bg-red-100 p-2 rounded-full text-red-600 font-bold">✗</div>
+            <p class="font-bold text-gray-800">{{ session('error') }}</p>
+        </div>
     @endif
 
 </body>

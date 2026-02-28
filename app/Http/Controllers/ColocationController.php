@@ -22,12 +22,29 @@ class ColocationController extends Controller
             'number' => 'required|integer|max:5'
         ]);
         $user = Auth::user()->id;
-        // dd($user);
         $colocation = $this->CollocationService->create_colocation($request->name, $request->number,$user);
         
         if($colocation)
         {
             return redirect()->back()->with('succesfuly to create this colocation');
         } 
+    }
+
+    public function leave_colocation(Request $request)
+    {
+        $request->validate([
+            'colocation_id' => 'required|exists:colocations,id',
+            'user_id' => 'required|exists:users,id'
+        ]);
+
+        $leave = $this->CollocationService->leave_colocation($request->colocation_id, $request->user_id);
+
+        if($leave)
+        {
+            return redirect()->route('userspace')->with('success', 'You have successfully left the colocation');
+        }
+        else{
+            return redirect()->back()->with('error', 'Failed to leave the colocation');
+        }
     }
 }

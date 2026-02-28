@@ -31,6 +31,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::post('/accept-invitation', [InvitationController::class, 'acceptInvitation'])->name('invitations.accept');
     Route::post('/refuse-invitation', [InvitationController::class, 'RefusInvitation'])->name('invitations.refuse');
     Route::post('/paying', [SettlementContorller::class, 'Paying'])->name('settlements.pay');
+    Route::post('/leavecolocation', [ColocationController::class, 'leave_colocation'])->name('colocations.leave');
 });
 
 Route::middleware(['auth','role:user'])->group(function(){
@@ -42,6 +43,7 @@ Route::middleware(['auth','role:user'])->group(function(){
     Route::post('/accept-invitation', [InvitationController::class, 'acceptInvitation'])->name('invitations.accept');
     Route::post('/refuse-invitation', [InvitationController::class, 'RefusInvitation'])->name('invitations.refuse');
     Route::post('/paying', [SettlementContorller::class, 'Paying'])->name('settlements.pay');
+    Route::post('/leavecolocation', [ColocationController::class, 'leave_colocation'])->name('colocations.leave');
 
 });
 

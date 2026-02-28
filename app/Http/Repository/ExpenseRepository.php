@@ -2,9 +2,10 @@
 
    namespace App\Http\Repository;
    use App\Models\Colocation;
-use App\Models\Expense;
-use App\Models\Settlement;
-use Illuminate\Support\Facades\DB;
+   use App\Models\Expense;
+   use App\Models\Settlement;
+   use App\Models\User;
+   use Illuminate\Support\Facades\DB;
 
    class ExpenseRepository
    {
@@ -40,6 +41,13 @@ use Illuminate\Support\Facades\DB;
             'updated_at' => now(),
             ]);
         }
+
+        $settlement = Settlement::where('expense_id', $expense->id)
+                    ->where('debtor_id', $user)->first();
+        if($settlement && $settlement->is_paid == true){
+            User::where('id', $user)->update(['reputation' => DB::raw('reputation + 1')]);
+        }
+
         return $expense;
             
 
