@@ -36,10 +36,10 @@ class InvitationController extends Controller
 
         if($accept)
         {
-            return redirect()->back()->with('success','the invitation has been successfuly accepted');
+            return redirect()->back()->with('success','Invitation acceptée avec succès !');
         }
         else{
-            return redirect()->back()->with('error', 'the invitation has not been accepted');
+            return redirect()->back()->with('error', "L'invitation n'a pas été acceptée.");
         }
     }
 }

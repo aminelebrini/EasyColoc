@@ -29,14 +29,14 @@ class AuthController extends Controller
             $request->session()->regenerate();
             if($user->role === 'admin')
             {
-                return redirect()->route('admindash')->with('success', 'Welcome to the admin dashboard!'); 
+                return redirect()->route('admindash')->with('success', 'Bienvenue sur le dashboard Admin !');            
             }
             if($user->role === 'user')
             {
-                return redirect()->route('userspace')->with('success', 'Welcome to your user space!');
+                return redirect()->route('userspace')->with('success', 'Bienvenue dans votre espace !');
             }
         }
-        return redirect()->route('login')->with('error', 'Invalid email or password or user is banned');
+        return redirect()->route('login')->with('error', 'Email/Mot de passe incorrect ou compte banni.');
     }
 
     public function register(Request $request)
@@ -51,7 +51,7 @@ class AuthController extends Controller
         $register = $this->AuthService->register($request->firstname, $request->lastname, $request->email,$request->password);
         if($register)
         {
-            return back();
+            return redirect()->route('login')->with('success', 'Votre compte a été créé ! Connectez-vous.');
         }
     }
 

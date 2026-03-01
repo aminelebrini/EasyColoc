@@ -31,10 +31,10 @@ class ExpenseController extends Controller
         
         if($expences)
         {
-            return redirect()->back()->with('success', 'succesfuly to create this expence !');
+            return redirect()->back()->with('success', 'La dépense a été créée avec succès !');
         }
         else{
-            return redirect()->back()->with('error', "expence doesn't created !");   
+            return redirect()->back()->with('error', "Erreur lors de la création de la dépense !");   
         }
     }
 }

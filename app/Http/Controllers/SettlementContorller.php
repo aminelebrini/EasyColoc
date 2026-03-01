@@ -29,9 +29,9 @@ class SettlementContorller extends Controller
 
             if ($settlements) 
             {
-                return redirect()->back()->with('success', 'Settlement successful');
+                return redirect()->back()->with('success', 'Le Settlement a été effectué avec succès !');
             } else {
-                return redirect()->back()->with('error', 'Settlement failed');
+                return redirect()->back()->with('error', 'Échec du Settlement');
             }
             // dd($settlements);
     }

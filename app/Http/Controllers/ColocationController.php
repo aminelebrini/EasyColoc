@@ -26,7 +26,7 @@ class ColocationController extends Controller
         
         if($colocation)
         {
-            return redirect()->back()->with('succesfuly to create this colocation');
+            return redirect()->back()->with('success', 'La colocation a été créée avec succès !');
         } 
     }
 
@@ -41,10 +41,10 @@ class ColocationController extends Controller
 
         if($leave)
         {
-            return redirect()->route('userspace')->with('success', 'You have successfully left the colocation');
+            return redirect()->route('userspace')->with('success', 'vous avez quitté la colocation avec succès !');
         }
         else{
-            return redirect()->route('userspace')->with('error', 'Failed to leave the colocation');
+            return redirect()->route('userspace')->with('error', 'Échec de la quittance de la colocation');
         }
     }
 }

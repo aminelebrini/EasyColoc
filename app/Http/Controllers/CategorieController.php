@@ -24,10 +24,10 @@ class CategorieController extends Controller
 
         if($categorie)
         {
-            return redirect()->back()->with('success', 'The category has been successfully created !');
+            return redirect()->back()->with('success', 'La catégorie a été créée avec succès !');
         }else{
 
-            return redirect()->back()->with('error', "The category doesn't created");
+            return redirect()->back()->with('error', "Erreur lors de la création de la catégorie.");
         
         }
     }

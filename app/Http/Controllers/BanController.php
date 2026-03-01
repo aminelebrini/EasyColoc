@@ -23,9 +23,9 @@ class BanController extends Controller
         $result = $this->BanService->banuser($request->email);
 
         if ($result) {
-            return redirect()->back()->with('success', 'User banned successfully.');
+            return redirect()->back()->with('success', "L'utilisateur a été banni avec succès.");
         } else {
-            return redirect()->back()->with('error', 'Failed to ban user.');
+            return redirect()->back()->with('error', "Échec du bannissement de l'utilisateur.");
         }
     }
 
@@ -38,9 +38,9 @@ class BanController extends Controller
         $result = $this->BanService->debanuser($request->email);
 
         if ($result) {
-            return redirect()->back()->with('success', 'User unbanned successfully.');
+            return redirect()->back()->with('success', "L'utilisateur a été débanni avec succès.");
         } else {
-            return redirect()->back()->with('error', 'Failed to unban user.');
+            return redirect()->back()->with('error', "Échec de la levée du bannissement.");
         }
     }
 }
