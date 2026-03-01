@@ -22,8 +22,8 @@ class AuthController extends Controller
         ]);
 
         $user = $this->AuthService->login($request->email,$request->password);
-
-        if($user)
+        
+        if($user && !$user->is_banned)
         {
             Auth::login($user);
             $request->session()->regenerate();
@@ -36,7 +36,7 @@ class AuthController extends Controller
                 return redirect()->route('userspace')->with('success', 'Welcome to your user space!');
             }
         }
-        return redirect()->route('login')->with('error', 'Invalid email or password');
+        return redirect()->route('login')->with('error', 'Invalid email or password or user is banned');
     }
 
     public function register(Request $request)

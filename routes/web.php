@@ -10,6 +10,7 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\MembersController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SettlementContorller;
+use App\Http\Controllers\BanController;
 use App\Models\Settlement;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::post('/refuse-invitation', [InvitationController::class, 'RefusInvitation'])->name('invitations.refuse');
     Route::post('/paying', [SettlementContorller::class, 'Paying'])->name('settlements.pay');
     Route::post('/leavecolocation', [ColocationController::class, 'leave_colocation'])->name('colocations.leave');
+    Route::post('/ban', [BanController::class, 'banuser'])->name('admin.ban');
+    Route::post('/deban', [BanController::class, 'debanuser'])->name('admin.deban');
 });
 
 Route::middleware(['auth','role:user'])->group(function(){

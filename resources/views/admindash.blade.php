@@ -95,6 +95,12 @@
                 <button onclick="toggleModal('modalCategorie')" class="px-6 py-3 bg-white text-indigo-600 border border-indigo-100 rounded-[20px] font-bold shadow-sm hover:bg-indigo-50 transition-all">
                     + Catégorie
                 </button>
+                <button onclick="toggleModal('banModal')" class="px-6 py-3 bg-white text-indigo-600 border border-indigo-100 rounded-[20px] font-bold shadow-sm hover:bg-indigo-50 transition-all">
+                    Banner
+                </button>
+                <button onclick="toggleModal('debanModal')" class="px-6 py-3 bg-white text-indigo-600 border border-indigo-100 rounded-[20px] font-bold shadow-sm hover:bg-indigo-50 transition-all">
+                    deBanner
+                </button>
             </div>
         </header>
         <div>
@@ -255,6 +261,81 @@
                 <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-[24px] font-bold text-xl shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all">Ajouter</button>
             </form>
         </div>
+    </div>
+
+
+    <div id="banModal" class="fixed hidden inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+    <div class="bg-white/90 glass w-full max-w-md rounded-[40px] shadow-2xl p-10 relative">
+        
+        <button onclick="toggleModal('banModal')" class="absolute top-8 right-8 text-gray-400 hover:text-red-500 transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+
+        <div class="text-center mb-8">
+            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-[24px] bg-red-50 mb-4 text-red-600 shadow-inner">
+                <svg class="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+            <h3 class="text-3xl font-black text-gray-900 tracking-tight">Bannir l'utilisateur</h3>
+            <p class="text-gray-500 mt-2 font-medium">L'accès sera coupé immédiatement.</p>
+        </div>
+
+        <form action="{{ route('admin.ban') }}" method="POST" class="space-y-6">
+            @csrf
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-4">Email Cible</label>
+                <input type="email" name="email" required 
+                    class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none focus:ring-2 focus:ring-red-500 transition-all font-medium"
+                    placeholder="exemple@email.com">
+            </div>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <button type="submit" class="w-full py-5 bg-red-600 text-white rounded-[24px] font-bold text-xl shadow-xl shadow-red-100 hover:bg-red-700 transition-all">
+                    Confirmer le Ban
+                </button>
+                <button type="button" onclick="toggleModal('banModal')" class="w-full py-4 text-gray-400 font-bold hover:text-gray-600 transition-all">
+                    Annuler l'action
+                </button>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <div id="debanModal" class="fixed hidden inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+    <div class="bg-white/90 glass w-full max-w-md rounded-[40px] shadow-2xl p-10 relative">
+        <button onclick="toggleModal('debanModal')" class="absolute top-8 right-8 text-gray-400 hover:text-green-500 transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+
+        <div class="text-center mb-8">
+            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-[24px] bg-green-50 mb-4 text-green-600 shadow-inner">
+                <svg class="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h3 class="text-3xl font-black text-gray-900 tracking-tight">Débannir l'utilisateur</h3>
+            <p class="text-gray-500 mt-2 font-medium">L'accès sera rétabli immédiatement.</p>
+        </div>
+
+        <form action="{{ route('admin.deban') }}" method="POST" class="space-y-6">
+            @csrf
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-4">Email Cible</label>
+                <input type="email" name="email" required 
+                    class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[24px] outline-none focus:ring-2 focus:ring-green-500 transition-all font-medium"
+                    placeholder="exemple@email.com">
+            </div>
+            <div class="flex flex-col gap-4 mt-8">
+                <button type="submit" class="w-full py-5 bg-green-600 text-white rounded-[24px] font-bold text-xl shadow-xl shadow-green-100 hover:bg-green-700 transition-all">
+                    Confirmer le Déban
+                </button>
+                <button type="button" onclick="toggleModal('debanModal')" class="w-full py-4 text-gray-400 font-bold hover:text-gray-600 transition-all">
+                    Annuler l'action
+                </button>
+            </div>
+        </form>
+    </div>
     </div>
 
     @if(session('success'))

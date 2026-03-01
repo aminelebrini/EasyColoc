@@ -53,8 +53,8 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <span class="font-semibold">Invitations</span>
                 </div>
-                @if(isset($receivedInvitations) && $receivedInvitations->count() > 0)
-                    <span class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">{{ $receivedInvitations->count() }}</span>
+                @if(isset($invitations) && $invitations->count() > 0)
+                    <span class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">{{ $invitations->count() }}</span>
                 @endif
             </a>
         </nav>
